@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+void main(){
+  runApp(MaterialApp(
+  home:Scaffold(
+    backgroundColor:Colors.blue.shade100,
+    appBar:AppBar(
+      title:Text('My First App'),
+    ),
+    body:Center(
+      child:Row(mainAxisAlignment:MainAxisAlignment.center,children:[
+  Image.network("https://media.licdn.com/dms/image/v2/C560BAQEdujoy3UR98A/company-logo_200_200/company-logo_200_200/0/1630657523088/vishnu_institute_of_technology_vishnupur_bhimavaram_pin_534202_cc_pa__logo?e=2147483647&v=beta&t=gwcdYbGpXRwnyN39ruLud9O0XV9_aay70QDgMhEF4so",
+                    width:150,
+                    height:150,
+            ),
+            SizedBox(height:10),
+        Text(
+        "Hello Flutter",
+        style:TextStyle(
+          fontSize:15,
+        fontWeight:FontWeight.bold,
+        fontStyle:FontStyle.italic),
+    )])),
+ )));
+}
