@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Builder(
+        builder: (context) {
+          double width = MediaQuery.of(context).size.width;
+
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text("Responsive UI"),
+            ),
+            body: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    "https://thumbs.dreamstime.com/b/tropical-rain-creates-serene-atmosphere-lush-green-park-tranquil-afternoon-heavy-falls-softly-creating-peaceful-381253688.jpg",
+                  ),
+                  fit: BoxFit.cover, // Makes the image cover the whole screen
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  width < 600 ? "Mobile Screen" : "Large Screen",
+                  style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
