@@ -26,76 +26,129 @@ class StudentScreen extends StatelessWidget {
         title: const Text("Student Information"),
         backgroundColor: Colors.blue,
       ),
+
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: const [
-          StudentCard(
-            name: "Geya",
-            branch: "Computer Science",
-            cgpa: "9.2",
-          ),
-          StudentCard(
-            name: "Shehnaz",
-            branch: "Electronics",
-            cgpa: "8.8",
-          ),
-          StudentCard(
-            name: "Karthika",
-            branch: "Mechanical",
-            cgpa: "8.5",
-          ),
+          StudentCard(),
+          StudentCard(),
+          StudentCard(),
         ],
       ),
     );
   }
 }
 
-// Same Custom Widget for every student
-class StudentCard extends StatelessWidget {
-  final String name;
-  final String branch;
-  final String cgpa;
+// Custom Widget
+class StudentCard extends StatefulWidget {
+  const StudentCard({super.key});
 
-  const StudentCard({
-    super.key,
-    required this.name,
-    required this.branch,
-    required this.cgpa,
-  });
+  @override
+  State<StudentCard> createState() => _StudentCardState();
+}
+
+class _StudentCardState extends State<StudentCard> {
+  final nameController = TextEditingController();
+  final branchController = TextEditingController();
+  final cgpaController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    branchController.dispose();
+    cgpaController.dispose();
+    super.dispose();
+  }
+
+  void saveStudent() {
+    String name = nameController.text;
+    String branch = branchController.text;
+    String cgpa = cgpaController.text;
+
+    print("Name: $name");
+    print("Branch: $branch");
+    print("CGPA: $cgpa");
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Student details saved"),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 16),
       elevation: 4,
+
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Row(
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // SAME ICON for every student
-            const Icon(
-              Icons.person,
-              size: 50,
-              color: Colors.blue,
+
+            // Icon
+            const Center(
+              child: Icon(
+                Icons.person,
+                size: 60,
+                color: Colors.blue,
+              ),
             ),
 
-            const SizedBox(width: 20),
+            const SizedBox(height: 15),
 
-            // SAME layout for every student
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text("Branch: $branch"),
-                Text("CGPA: $cgpa"),
-              ],
+            // Name
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                labelText: "Student Name",
+                hintText: "Enter name",
+                prefixIcon: Icon(Icons.person),
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Branch
+            TextField(
+              controller: branchController,
+              decoration: const InputDecoration(
+                labelText: "Branch",
+                hintText: "Enter branch",
+                prefixIcon: Icon(Icons.school),
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // CGPA
+            TextField(
+              controller: cgpaController,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              decoration: const InputDecoration(
+                labelText: "CGPA",
+                hintText: "Enter CGPA",
+                prefixIcon: Icon(Icons.star),
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            // Save button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: saveStudent,
+                child: const Text("Save Student"),
+              ),
             ),
           ],
         ),
